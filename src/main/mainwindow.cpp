@@ -34,8 +34,17 @@ MainWindow::MainWindow(QWidget *parent) :
     createConnects(); // moved func
     trIcon->show();  //display tray
 
-    ui->LEInputFolder->setText(QDir::currentPath());
-    ui->LEOutputFolder->setText(QDir::currentPath() + "/output");
+    //    ui->LEInputFolder->setText(QDir::currentPath());
+    //    ui->LEOutputFolder->setText(QDir::currentPath() + "/output");
+
+    QString t_str = "/home/files/Develop/git/QCSMnist/QCSMnist/resources/trainData";
+    ui->LEInputTestDataFolder->setText(t_str);
+    ui->LEOutputTestDataFolder->setText(t_str + "/output");
+
+    t_str = "/home/files/Develop/git/QCSMnist/QCSMnist/resources/testData";
+    ui->LEInputTrainDataFolder->setText(t_str);
+    ui->LEOutputTrainDataFolder->setText(t_str + "/output");
+
 
     /// moved to center desktop
     QRect rect = QApplication::desktop()->availableGeometry(this);
@@ -60,8 +69,10 @@ void MainWindow::createConnects()
     connect(ui->action_File_Close, SIGNAL(triggered()), this, SLOT(close()));
 
     // buttons
-    connect(ui->pBBrowseInputFolder, SIGNAL(clicked()), SLOT(browseInputFolder()));
-    connect(ui->pBBrowseOutPutFolder, SIGNAL(clicked()), SLOT(browseOutputFolder()));
+    connect(ui->pBBrowseInputTestDataFolder, SIGNAL(clicked()), SLOT(browseInputTestDataFolder()));
+    connect(ui->pBBrowseOutputTestDataFolder, SIGNAL(clicked()), SLOT(browseOutputTestDataFolder()));
+    connect(ui->pBBrowseInputTrainDataFolder, SIGNAL(clicked()), SLOT(browseInputTrainDataFolder()));
+    connect(ui->pBBrowseOutputTrainDataFolder, SIGNAL(clicked()), SLOT(browseOutputTrainDataFolder()));
     connect(ui->pBGenerate, SIGNAL(clicked()), SLOT(generateSets()));
 
     // menu about
@@ -119,8 +130,9 @@ void MainWindow::aboutOpenSite()
 {
     QDesktopServices::openUrl(QUrl(GL_WEB_SITE));
 }
+
 //------------------------------------------------------------------------------
-void MainWindow::browseInputFolder()
+void MainWindow::browseInputTestDataFolder()
 {
     QFileDialog::Options options = QFileDialog::DontResolveSymlinks | QFileDialog::ShowDirsOnly;
     QString directory = QFileDialog::getExistingDirectory(this
@@ -129,14 +141,14 @@ void MainWindow::browseInputFolder()
                                                           , options);
     if (!directory.isEmpty())
     {
-        ui->LEInputFolder->setText(directory);
-        ui->LEOutputFolder->setText(directory + "/output/");
+        ui->LEInputTestDataFolder->setText(directory);
+        ui->LEOutputTestDataFolder->setText(directory + "/output/");
 
-//        loadListFilesToTable();
+        //        loadListFilesToTable();
     }
 }
 //------------------------------------------------------------------------------
-void MainWindow::browseOutputFolder()
+void MainWindow::browseOutputTestDataFolder()
 {
     QFileDialog::Options options = QFileDialog::DontResolveSymlinks | QFileDialog::ShowDirsOnly;
     QString directory = QFileDialog::getExistingDirectory(this
@@ -144,7 +156,34 @@ void MainWindow::browseOutputFolder()
                                                           , ""
                                                           , options);
     if (!directory.isEmpty())
-        ui->LEOutputFolder->setText(directory);
+        ui->LEOutputTestDataFolder->setText(directory);
+}
+//------------------------------------------------------------------------------
+void MainWindow::browseInputTrainDataFolder()
+{
+    QFileDialog::Options options = QFileDialog::DontResolveSymlinks | QFileDialog::ShowDirsOnly;
+    QString directory = QFileDialog::getExistingDirectory(this
+                                                          , tr("Select input folder")
+                                                          , ""
+                                                          , options);
+    if (!directory.isEmpty())
+    {
+        ui->LEInputTrainDataFolder->setText(directory);
+        ui->LEOutputTrainDataFolder->setText(directory + "/output/");
+
+        //        loadListFilesToTable();
+    }
+}
+//------------------------------------------------------------------------------
+void MainWindow::browseOutputTrainDataFolder()
+{
+    QFileDialog::Options options = QFileDialog::DontResolveSymlinks | QFileDialog::ShowDirsOnly;
+    QString directory = QFileDialog::getExistingDirectory(this
+                                                          , tr("Select output folder")
+                                                          , ""
+                                                          , options);
+    if (!directory.isEmpty())
+        ui->LEOutputTrainDataFolder->setText(directory);
 }
 //------------------------------------------------------------------------------
 void MainWindow::generateSets()
@@ -175,7 +214,7 @@ void MainWindow::generateSets()
 
     for (int i = 0; i < numbers.size(); i++)
     {
-        myDebug() << numbers.at(i);
+        //        myDebug() << numbers.at(i);
         generateSet(numbers.at(i));
     }
 }
@@ -183,10 +222,68 @@ void MainWindow::generateSets()
 void MainWindow::generateSet(QString number)
 {
     QStringList listImages;
-    listImages = getListImages(number, ui->LEInputFolder->text());
+    listImages = getListImages(number, ui->LEInputTestDataFolder->text());
     // test data
-//     int testData = ui->spinBTestData->value();
-//     int trainData = ui->spinBTrainData->value();
+    int testData = ui->spinBTestData->value();
+    int trainData = ui->spinBTrainData->value();
+
+
+    QStringList testImages;
+
+    QStringList trainImages;
+
+    // create output folders
+    QDir dir(ui->LEOutputTestDataFolder->text());
+    dir.mkpath(ui->LEOutputTestDataFolder->text());
+
+    QDir dir2(ui->LEOutputTrainDataFolder->text());
+    dir2.mkpath(ui->LEOutputTrainDataFolder->text());
+
+
+    int t_count;
+
+    // generate test set
+    for (int i = 0; i < testData; i++)
+    {
+        QString t_number;
+        do
+        {
+            t_count = rand() % testData;
+            t_number = ui->LEInputTestDataFolder->text() + "/" + QString(number + "_%1").arg(t_count, 5, 10, QChar('0'))
+                    + ".bmp";
+        } while (testImages.contains(t_number));
+
+        testImages << listImages.at(t_count);
+        QImage img(listImages.at(t_count));
+        QString t_path = ui->LEOutputTestDataFolder->text() +
+                "/" + QString(number + "_%1").arg(i, 5, 10, QChar('0'))
+                + ".bmp";
+
+        img.save(t_path);
+    }
+
+    myDebug() << testImages.size();
+
+    // generate train set
+    for (int i = 0; i < trainData; i++)
+    {
+        QString t_number;
+        do
+        {
+            t_count = rand() % testData;
+            t_number = ui->LEInputTrainDataFolder->text() + "/" + QString(number + "_%1").arg(t_count, 5, 10, QChar('0'))
+                    + ".bmp";
+        } while (testImages.contains(t_number));
+
+        testImages << listImages.at(t_count);
+        QImage img(listImages.at(t_count));
+        QString t_path = ui->LEOutputTrainDataFolder->text() +
+                "/" + QString(number + "_%1").arg(i, 5, 10, QChar('0'))
+                + ".bmp";
+
+        img.save(t_path);
+    }
 }
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
+

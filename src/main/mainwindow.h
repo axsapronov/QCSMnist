@@ -30,8 +30,10 @@ private slots:
 
     void aboutOpenSite();
 
-    void browseInputFolder();
-    void browseOutputFolder();
+    void browseInputTestDataFolder();
+    void browseOutputTestDataFolder();
+    void browseInputTrainDataFolder();
+    void browseOutputTrainDataFolder();
     void generateSets();
 
 private:
