@@ -280,7 +280,7 @@ void MainWindow::generateSet(QString number)
         QString t_path = ui->LEOutputTrainDataFolder->text() +
                 "/" + QString(number + "_%1").arg(i, 5, 10, QChar('0'))
                 + ".bmp";
-        myDebug() << t_path;
+//        myDebug() << t_path;
 
         img.save(t_path);
     }
