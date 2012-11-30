@@ -309,5 +309,5 @@ QStringList getBookmarks(QString pathToFile);
 
 
 // this prog
-QStringList getListImages(QString number);
+QStringList getListImages(const QString number, const QString path);
 #endif // __FILECOMMON__H

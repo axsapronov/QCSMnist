@@ -905,10 +905,11 @@ QString getNameBook(const QString &m_str)
 //    return str;
 //}
 //------------------------------------------------------------------------------
-QStringList getListImages(QString number)
+QStringList getListImages(const QString number, const QString path)
 {
     QStringList list;
 
+    list = recursiveFind(path);
     return list;
 }
 //------------------------------------------------------------------------------

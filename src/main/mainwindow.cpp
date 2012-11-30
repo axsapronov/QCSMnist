@@ -183,7 +183,10 @@ void MainWindow::generateSets()
 void MainWindow::generateSet(QString number)
 {
     QStringList listImages;
-    listImages = getListImages(number);
+    listImages = getListImages(number, ui->LEInputFolder->text());
+    // test data
+//     int testData = ui->spinBTestData->value();
+//     int trainData = ui->spinBTrainData->value();
 }
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
