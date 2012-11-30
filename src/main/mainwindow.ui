@@ -6,21 +6,197 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>503</width>
-    <height>355</height>
+    <width>349</width>
+    <height>477</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralWidget"/>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="0" column="0" colspan="2">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Input folder</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="LEInputFolder"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pBBrowseInputFolder">
+        <property name="text">
+         <string>Browse</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="0" colspan="2">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Output folder</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="LEPutputFolder"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pBBrowseOutPutFolder">
+        <property name="text">
+         <string>Browse</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>Numbers:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QCheckBox" name="checkB_1">
+        <property name="text">
+         <string>1</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QCheckBox" name="checkB_6">
+        <property name="text">
+         <string>6</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QCheckBox" name="checkB_2">
+        <property name="text">
+         <string>2</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QCheckBox" name="checkB_7">
+        <property name="text">
+         <string>7</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QCheckBox" name="checkB_3">
+        <property name="text">
+         <string>3</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QCheckBox" name="checkB_8">
+        <property name="text">
+         <string>8</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QCheckBox" name="checkB_4">
+        <property name="text">
+         <string>4</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QCheckBox" name="checkB_9">
+        <property name="text">
+         <string>9</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QCheckBox" name="checkB_5">
+        <property name="text">
+         <string>5</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QCheckBox" name="checkB_0">
+        <property name="text">
+         <string>0</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="4" column="1">
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>152</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="5" column="0" colspan="2">
+     <widget class="QPushButton" name="pBGenerate">
+      <property name="text">
+       <string>Generate</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>503</width>
-     <height>23</height>
+     <width>349</width>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="mFile">
@@ -29,39 +205,6 @@
     </property>
     <addaction name="separator"/>
     <addaction name="action_File_Close"/>
-   </widget>
-   <widget class="QMenu" name="mView">
-    <property name="title">
-     <string>View</string>
-    </property>
-   </widget>
-   <widget class="QMenu" name="mSettings">
-    <property name="title">
-     <string>Settings</string>
-    </property>
-    <widget class="QMenu" name="mSettingsLanguage">
-     <property name="title">
-      <string>Language</string>
-     </property>
-     <addaction name="action_Settings_Language_Russian"/>
-     <addaction name="action_Settings_Language_France"/>
-     <addaction name="action_Settings_Language_English"/>
-     <addaction name="action_Settings_Language_Deutsch"/>
-    </widget>
-    <addaction name="action_Settings_General"/>
-    <addaction name="mSettingsLanguage"/>
-    <addaction name="separator"/>
-    <addaction name="action_Settings_Module"/>
-    <addaction name="action_Settings_Lan"/>
-    <addaction name="action_Settings_Font"/>
-   </widget>
-   <widget class="QMenu" name="mSearch">
-    <property name="title">
-     <string>Search</string>
-    </property>
-    <addaction name="action_Search_Find"/>
-    <addaction name="action_Search_Find_More"/>
-    <addaction name="action_Search_Find_and_replace"/>
    </widget>
    <widget class="QMenu" name="mAbout">
     <property name="title">
@@ -74,9 +217,6 @@
     <addaction name="action_About_Site"/>
    </widget>
    <addaction name="mFile"/>
-   <addaction name="mView"/>
-   <addaction name="mSettings"/>
-   <addaction name="mSearch"/>
    <addaction name="mAbout"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
