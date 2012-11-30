@@ -37,11 +37,11 @@ MainWindow::MainWindow(QWidget *parent) :
     //    ui->LEInputFolder->setText(QDir::currentPath());
     //    ui->LEOutputFolder->setText(QDir::currentPath() + "/output");
 
-    QString t_str = "/home/files/Develop/git/QCSMnist/QCSMnist/resources/trainData";
+    QString t_str = "/home/files/Develop/git/QCSMnist/QCSMnist/resources/testData";
     ui->LEInputTestDataFolder->setText(t_str);
     ui->LEOutputTestDataFolder->setText(t_str + "/output");
 
-    t_str = "/home/files/Develop/git/QCSMnist/QCSMnist/resources/testData";
+    t_str = "/home/files/Develop/git/QCSMnist/QCSMnist/resources/trainData";
     ui->LEInputTrainDataFolder->setText(t_str);
     ui->LEOutputTrainDataFolder->setText(t_str + "/output");
 
@@ -262,7 +262,7 @@ void MainWindow::generateSet(QString number)
         img.save(t_path);
     }
 
-    myDebug() << testImages.size();
+//    myDebug() << testImages.size();
 
     // generate train set
     for (int i = 0; i < trainData; i++)
@@ -280,6 +280,7 @@ void MainWindow::generateSet(QString number)
         QString t_path = ui->LEOutputTrainDataFolder->text() +
                 "/" + QString(number + "_%1").arg(i, 5, 10, QChar('0'))
                 + ".bmp";
+        myDebug() << t_path;
 
         img.save(t_path);
     }
