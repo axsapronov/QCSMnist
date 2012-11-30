@@ -39,11 +39,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QString t_str = "/home/files/Develop/git/QCSMnist/QCSMnist/resources/testData";
     ui->LEInputTestDataFolder->setText(t_str);
-    ui->LEOutputTestDataFolder->setText(t_str + "/output");
+
+    t_str = "/home/files/Develop/git/QCSMnist/QCSMnist-build/build/bin/testData/output";
+    ui->LEOutputTestDataFolder->setText(t_str);
 
     t_str = "/home/files/Develop/git/QCSMnist/QCSMnist/resources/trainData";
     ui->LEInputTrainDataFolder->setText(t_str);
-    ui->LEOutputTrainDataFolder->setText(t_str + "/output");
+
+    t_str = "/home/files/Develop/git/QCSMnist/QCSMnist-build/build/bin/trainData/output";
+    ui->LEOutputTrainDataFolder->setText(t_str);
 
 
     /// moved to center desktop
@@ -229,7 +233,6 @@ void MainWindow::generateSet(QString number)
 
 
     QStringList testImages;
-
     QStringList trainImages;
 
     // create output folders
@@ -243,46 +246,56 @@ void MainWindow::generateSet(QString number)
     int t_count;
 
     // generate test set
-    for (int i = 0; i < testData; i++)
+    if (!listImages.isEmpty())
     {
-        QString t_number;
-        do
+
+        for (int i = 0; i < testData; i++)
         {
-            t_count = rand() % testData;
-            t_number = ui->LEInputTestDataFolder->text() + "/" + QString(number + "_%1").arg(t_count, 5, 10, QChar('0'))
+            QString t_number;
+            do
+            {
+                t_count = rand() % testData;
+                t_number = ui->LEInputTestDataFolder->text() + "/" + QString(number + "_%1").arg(t_count, 5, 10, QChar('0'))
+                        + ".bmp";
+            } while (testImages.contains(t_number));
+
+            testImages << listImages.at(t_count);
+            QImage img(listImages.at(t_count));
+            QString t_path = ui->LEOutputTestDataFolder->text() +
+                    "/" + QString(number + "_%1").arg(i, 5, 10, QChar('0'))
                     + ".bmp";
-        } while (testImages.contains(t_number));
 
-        testImages << listImages.at(t_count);
-        QImage img(listImages.at(t_count));
-        QString t_path = ui->LEOutputTestDataFolder->text() +
-                "/" + QString(number + "_%1").arg(i, 5, 10, QChar('0'))
-                + ".bmp";
-
-        img.save(t_path);
+            img.save(t_path);
+        }
     }
 
-//    myDebug() << testImages.size();
+    //    myDebug() << testImages.size();
 
+
+    listImages = getListImages(number, ui->LEInputTrainDataFolder->text());
     // generate train set
-    for (int i = 0; i < trainData; i++)
+
+    if (!listImages.isEmpty())
     {
-        QString t_number;
-        do
+        for (int i = 0; i < trainData; i++)
         {
-            t_count = rand() % testData;
-            t_number = ui->LEInputTrainDataFolder->text() + "/" + QString(number + "_%1").arg(t_count, 5, 10, QChar('0'))
+            QString t_number;
+            do
+            {
+                t_count = rand() % trainData;
+                t_number = ui->LEInputTrainDataFolder->text() + "/" + QString(number + "_%1").arg(t_count, 5, 10, QChar('0'))
+                        + ".bmp";
+            } while (trainImages.contains(t_number));
+
+            testImages << listImages.at(t_count);
+            QImage img(listImages.at(t_count));
+            QString t_path = ui->LEOutputTrainDataFolder->text() +
+                    "/" + QString(number + "_%1").arg(i, 5, 10, QChar('0'))
                     + ".bmp";
-        } while (testImages.contains(t_number));
+            //        myDebug() << t_path;
 
-        testImages << listImages.at(t_count);
-        QImage img(listImages.at(t_count));
-        QString t_path = ui->LEOutputTrainDataFolder->text() +
-                "/" + QString(number + "_%1").arg(i, 5, 10, QChar('0'))
-                + ".bmp";
-//        myDebug() << t_path;
-
-        img.save(t_path);
+            img.save(t_path);
+        }
     }
 }
 //------------------------------------------------------------------------------
