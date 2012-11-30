@@ -28,12 +28,6 @@ private slots:
     //tray
     void showHide(QSystemTrayIcon::ActivationReason);
 
-    // language
-    void setLangRu();
-    void setLangFr();
-    void setLangDe();
-    void setLangEn();
-
     void aboutOpenSite();
 
 private:

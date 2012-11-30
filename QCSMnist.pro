@@ -51,11 +51,3 @@ HEADERS  += \
 FORMS    += \
     mainwindow.ui \
     about.ui
-
-TRANSLATIONS += \
-    resources/lang/ru.ts \
-    resources/lang/de.ts \
-    resources/lang/fr.ts
-
-RESOURCES += \
-    resources/resources.qrc

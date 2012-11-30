@@ -43,16 +43,6 @@ void MainWindow::createConnects()
     // menu file
     connect(ui->action_File_Close, SIGNAL(triggered()), this, SLOT(close()));
 
-    // menu settings
-
-        //menu settings -> lang
-    connect(ui->action_Settings_Language_Russian, SIGNAL(triggered()), this, SLOT(setLangRu()) );
-    connect(ui->action_Settings_Language_English, SIGNAL(triggered()), this, SLOT(setLangEn()) );
-    connect(ui->action_Settings_Language_Deutsch, SIGNAL(triggered()), this, SLOT(setLangDe()) );
-    connect(ui->action_Settings_Language_France, SIGNAL(triggered()), this, SLOT(setLangFr()) );
-
-    // menu search
-
 
     // menu about
     connect(ui->action_About_About, SIGNAL(triggered()), about, SLOT(show()));
@@ -103,39 +93,6 @@ void MainWindow::createActions()
 
     quitAction = new QAction(tr("Q&uit"), this);
     connect(quitAction, SIGNAL(triggered()), this, SLOT(close()));
-}
-//----------------------------------------------------------------------
-void MainWindow::setLangEn()
-{
-    ui->action_Settings_Language_Deutsch ->setChecked(false);
-    ui->action_Settings_Language_Russian ->setChecked(false);
-    ui->action_Settings_Language_France ->setChecked(false);
-    ui->action_Settings_Language_English ->setChecked(true);
-}
-
-//----------------------------------------------------------------------
-void MainWindow::setLangRu()
-{
-    ui->action_Settings_Language_Deutsch ->setChecked(false);
-    ui->action_Settings_Language_Russian ->setChecked(true);
-    ui->action_Settings_Language_France ->setChecked(false);
-    ui->action_Settings_Language_English ->setChecked(false);
-}
-//----------------------------------------------------------------------
-void MainWindow::setLangDe()
-{
-    ui->action_Settings_Language_Deutsch ->setChecked(true);
-    ui->action_Settings_Language_Russian ->setChecked(false);
-    ui->action_Settings_Language_France ->setChecked(false);
-    ui->action_Settings_Language_English ->setChecked(false);
-}
-//----------------------------------------------------------------------
-void MainWindow::setLangFr()
-{
-    ui->action_Settings_Language_Deutsch ->setChecked(false);
-    ui->action_Settings_Language_Russian ->setChecked(false);
-    ui->action_Settings_Language_France ->setChecked(true);
-    ui->action_Settings_Language_English ->setChecked(false);
 }
 //----------------------------------------------------------------------
 void MainWindow::aboutOpenSite()
