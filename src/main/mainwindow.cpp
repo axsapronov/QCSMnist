@@ -13,9 +13,13 @@
 #include "defines.h" /// defines
 #include "mainwindow.h" ///
 #include "about.h" /// aboutdialog
+#include "debughelper.h"
 
 #include <QDesktopServices>
 #include <QUrl>
+#include <QFileDialog>
+
+#include <QDesktopWidget> /// moved to center
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -28,13 +32,24 @@ MainWindow::MainWindow(QWidget *parent) :
     createTrayIcon(); // add actionts to tray menu
     createConnects(); // moved func
     trIcon->show();  //display tray
+
+    ui->LEInputFolder->setText(QDir::currentPath());
+    ui->LEOutputFolder->setText(QDir::currentPath() + "/output");
+
+    /// moved to center desktop
+    QRect rect = QApplication::desktop()->availableGeometry(this);
+    this->move(rect.width() / 2 - this->width() / 2,
+               rect.height() / 2 - this->height() / 2);
+    /// maximized
+    //    this->showMaximized();
+
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
-//----------------------------------------------------------------------
+//------------------------------------------------------------------------------
 void MainWindow::createConnects()
 {
     //tray
@@ -43,13 +58,17 @@ void MainWindow::createConnects()
     // menu file
     connect(ui->action_File_Close, SIGNAL(triggered()), this, SLOT(close()));
 
+    // buttons
+    connect(ui->pBBrowseInputFolder, SIGNAL(clicked()), SLOT(browseInputFolder()));
+    connect(ui->pBBrowseOutPutFolder, SIGNAL(clicked()), SLOT(browseOutputFolder()));
+    connect(ui->pBGenerate, SIGNAL(clicked()), SLOT(generateSets()));
 
     // menu about
     connect(ui->action_About_About, SIGNAL(triggered()), about, SLOT(show()));
     connect(ui->action_About_About_Qt, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
     connect(ui->action_About_Site, SIGNAL(triggered()), this, SLOT(aboutOpenSite()));
 }
-//----------------------------------------------------------------------
+//------------------------------------------------------------------------------
 void MainWindow::showHide(QSystemTrayIcon::ActivationReason r)
 {
     if (r == QSystemTrayIcon::Trigger)
@@ -64,7 +83,7 @@ void MainWindow::showHide(QSystemTrayIcon::ActivationReason r)
         }
     }
 }
-//----------------------------------------------------------------------
+//------------------------------------------------------------------------------
 void MainWindow::createTrayIcon()
 {
     trIcon = new QSystemTrayIcon();  //init
@@ -79,7 +98,7 @@ void MainWindow::createTrayIcon()
 
     trIcon->setContextMenu(trayIconMenu); //set menu
 }
-//----------------------------------------------------------------------
+//------------------------------------------------------------------------------
 void MainWindow::createActions()
 {
     minimizeAction = new QAction(tr("&Hide"), this);
@@ -94,9 +113,41 @@ void MainWindow::createActions()
     quitAction = new QAction(tr("Q&uit"), this);
     connect(quitAction, SIGNAL(triggered()), this, SLOT(close()));
 }
-//----------------------------------------------------------------------
+//------------------------------------------------------------------------------
 void MainWindow::aboutOpenSite()
 {
     QDesktopServices::openUrl(QUrl(GL_WEB_SITE));
 }
-//----------------------------------------------------------------------
+//------------------------------------------------------------------------------
+void MainWindow::browseInputFolder()
+{
+    QFileDialog::Options options = QFileDialog::DontResolveSymlinks | QFileDialog::ShowDirsOnly;
+    QString directory = QFileDialog::getExistingDirectory(this
+                                                          , tr("Select input folder")
+                                                          , ""
+                                                          , options);
+    if (!directory.isEmpty())
+    {
+        ui->LEInputFolder->setText(directory);
+        ui->LEOutputFolder->setText(directory + "/output/");
+
+//        loadListFilesToTable();
+    }
+}
+//------------------------------------------------------------------------------
+void MainWindow::browseOutputFolder()
+{
+    QFileDialog::Options options = QFileDialog::DontResolveSymlinks | QFileDialog::ShowDirsOnly;
+    QString directory = QFileDialog::getExistingDirectory(this
+                                                          , tr("Select output folder")
+                                                          , ""
+                                                          , options);
+    if (!directory.isEmpty())
+        ui->LEOutputFolder->setText(directory);
+}
+//------------------------------------------------------------------------------
+void MainWindow::generateSets()
+{
+    myDebug() << "generate sets";
+}
+//------------------------------------------------------------------------------

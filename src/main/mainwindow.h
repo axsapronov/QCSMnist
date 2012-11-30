@@ -30,6 +30,10 @@ private slots:
 
     void aboutOpenSite();
 
+    void browseInputFolder();
+    void browseOutputFolder();
+    void generateSets();
+
 private:
     Ui::MainWindow *ui;
 
