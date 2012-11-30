@@ -51,6 +51,8 @@ private:
     void createConnects();
     void createTrayIcon();
     void createActions();
+
+    void generateSet(QString number);
 };
 
 #endif // MAINWINDOW_H

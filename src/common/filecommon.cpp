@@ -905,3 +905,10 @@ QString getNameBook(const QString &m_str)
 //    return str;
 //}
 //------------------------------------------------------------------------------
+QStringList getListImages(QString number)
+{
+    QStringList list;
+
+    return list;
+}
+//------------------------------------------------------------------------------

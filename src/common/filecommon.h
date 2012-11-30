@@ -308,10 +308,6 @@ QString getDescriptionForWordFromDict(QString pathToFile, QString word);
 QStringList getBookmarks(QString pathToFile);
 
 
-
 // this prog
-QString getNameBook(const QString &m_str);
-//QString getUrlChapter(const QString &url);
-//QString getUrlChapter(const QString &url, const QString &bookName, const QString &chapterValue);
-
+QStringList getListImages(QString number);
 #endif // __FILECOMMON__H

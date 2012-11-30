@@ -14,6 +14,7 @@
 #include "mainwindow.h" ///
 #include "about.h" /// aboutdialog
 #include "debughelper.h"
+#include "filecommon.h"
 
 #include <QDesktopServices>
 #include <QUrl>
@@ -149,5 +150,40 @@ void MainWindow::browseOutputFolder()
 void MainWindow::generateSets()
 {
     myDebug() << "generate sets";
+    QStringList numbers;
+    if (ui->checkB_0->isChecked())
+        numbers << "0";
+    if (ui->checkB_1->isChecked())
+        numbers << "1";
+    if (ui->checkB_2->isChecked())
+        numbers << "2";
+    if (ui->checkB_3->isChecked())
+        numbers << "3";
+    if (ui->checkB_4->isChecked())
+        numbers << "4";
+    if (ui->checkB_5->isChecked())
+        numbers << "5";
+    if (ui->checkB_6->isChecked())
+        numbers << "6";
+    if (ui->checkB_7->isChecked())
+        numbers << "7";
+    if (ui->checkB_8->isChecked())
+        numbers << "8";
+    if (ui->checkB_9->isChecked())
+        numbers << "9";
+
+
+    for (int i = 0; i < numbers.size(); i++)
+    {
+        myDebug() << numbers.at(i);
+        generateSet(numbers.at(i));
+    }
 }
+//------------------------------------------------------------------------------
+void MainWindow::generateSet(QString number)
+{
+    QStringList listImages;
+    listImages = getListImages(number);
+}
+//------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
