@@ -19,6 +19,7 @@
 #include <QDesktopServices>
 #include <QUrl>
 #include <QFileDialog>
+#include <QProgressDialog>
 
 #include <QDesktopWidget> /// moved to center
 
@@ -216,10 +217,23 @@ void MainWindow::generateSets()
         numbers << "9";
 
 
+    QProgressDialog progressDialog("", "It's not Cancel", 0, 100);
+    progressDialog.setValue(0);
+    progressDialog.setGeometry(750, 300, 400, 170);
+    progressDialog.show();
+
+    QLabel overallLabel(&progressDialog);
+    overallLabel.setGeometry(11, 10, 378, 20);
+    overallLabel.setText("Generate...");
+    overallLabel.show();
+
+
     for (int i = 0; i < numbers.size(); i++)
     {
         //        myDebug() << numbers.at(i);
         generateSet(numbers.at(i));
+        progressDialog.setValue(100 * i / numbers.size());
+        QApplication::processEvents();
     }
 }
 //------------------------------------------------------------------------------
@@ -248,7 +262,6 @@ void MainWindow::generateSet(QString number)
     // generate test set
     if (!listImages.isEmpty())
     {
-
         for (int i = 0; i < testData; i++)
         {
             QString t_number;
@@ -292,7 +305,7 @@ void MainWindow::generateSet(QString number)
             QString t_path = ui->LEOutputTrainDataFolder->text() +
                     "/" + QString(number + "_%1").arg(i, 5, 10, QChar('0'))
                     + ".bmp";
-            //        myDebug() << t_path;
+//            myDebug() << t_path;
 
             img.save(t_path);
         }
