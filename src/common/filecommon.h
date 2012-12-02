@@ -27,4 +27,7 @@ QStringList recursiveFind(QString directory);
 
 // this prog
 QStringList getListImages(const QString number, const QString path);
+
+int getCountNumberTrain(int number);
+int getCountNumberTest(int number);
 #endif // __FILECOMMON__H

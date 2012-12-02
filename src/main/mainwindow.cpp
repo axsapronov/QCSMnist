@@ -259,15 +259,17 @@ void MainWindow::generateSet(QString number)
 
     int t_count;
 
+    int numberCount;
     // generate test set
     if (!listImages.isEmpty())
     {
+        numberCount = getCountNumberTest(number.toInt());
         for (int i = 0; i < testData; i++)
         {
             QString t_number;
             do
             {
-                t_count = rand() % testData;
+                t_count = rand() % numberCount;
                 t_number = ui->LEInputTestDataFolder->text() + "/" + QString(number + "_%1").arg(t_count, 5, 10, QChar('0'))
                         + ".bmp";
             } while (testImages.contains(t_number));
@@ -290,12 +292,13 @@ void MainWindow::generateSet(QString number)
 
     if (!listImages.isEmpty())
     {
+        numberCount = getCountNumberTrain(number.toInt());
         for (int i = 0; i < trainData; i++)
         {
             QString t_number;
             do
             {
-                t_count = rand() % trainData;
+                t_count = rand() % numberCount;
                 t_number = ui->LEInputTrainDataFolder->text() + "/" + QString(number + "_%1").arg(t_count, 5, 10, QChar('0'))
                         + ".bmp";
             } while (trainImages.contains(t_number));
@@ -311,6 +314,7 @@ void MainWindow::generateSet(QString number)
         }
     }
 }
+//------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 
