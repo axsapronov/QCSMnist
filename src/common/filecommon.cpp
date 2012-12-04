@@ -88,8 +88,8 @@ int getCountNumberTrain(int number)
         break;
     default:
         // 0
-        res = 979
-                break;
+        res = 979;
+        break;
     }
     return res;
 }
@@ -129,8 +129,8 @@ int getCountNumberTest(int number)
         break;
     default:
         // 0
-        res = 5922
-                break;
+        res = 5922;
+        break;
     }
     return res;
 }
